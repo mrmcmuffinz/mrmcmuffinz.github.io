@@ -3,6 +3,7 @@ date = '2025-11-16T20:38:08-06:00'
 title = "Welcome"
 description = "My corner of the internet"
 draft = false
+outputs = ["HTML"]
 +++
 
 Hi, I’m Abraham 👋
