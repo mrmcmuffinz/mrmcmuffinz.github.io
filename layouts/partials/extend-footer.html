@@ -1,10 +1,19 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("contact-form");
-  if (!form) return; // only run on the contact page
+  if (!form) return; // only do this on the contact page
 
   form.addEventListener("submit", async function (event) {
-    event.preventDefault(); // stop the normal form submit / redirect
+    event.preventDefault(); // stop the browser's normal submit
+
+    // Extra HTML5 validation
+    if (!form.checkValidity()) {
+      // Show browser's own validation messages
+      if (typeof form.reportValidity === "function") {
+        form.reportValidity();
+      }
+      return;
+    }
 
     const submitButton = form.querySelector("button[type='submit']");
     if (submitButton) {
@@ -20,8 +29,23 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (response.ok) {
-        // On success, go to your own thanks page
-        window.location.href = "https://mrmcmuffinz.github.io/thanks/";
+        // Track successful submission in Google Analytics (if available)
+        if (typeof window.gtag === "function") {
+          try {
+            gtag('event', 'contact_form_submit', {
+              'event_category': 'contact',
+              'event_label': 'contact_page',
+              'value': 1
+            });
+          } catch (e) {
+            console.warn("GA tracking failed:", e);
+          }
+        }
+
+        // Small delay so GA has time to send the event, then redirect
+        setTimeout(function () {
+          window.location.href = "https://mrmcmuffinz.github.io/thanks/";
+        }, 300);
       } else {
         alert("There was a problem sending your message. Please try again later.");
         if (submitButton) {
