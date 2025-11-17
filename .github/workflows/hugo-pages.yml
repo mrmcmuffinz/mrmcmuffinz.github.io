@@ -1,0 +1,46 @@
+name: Build and Deploy Hugo site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    # Needed for GitHub Pages deployment
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    env:
+      HUGO_VERSION: "0.152.2"
+      HUGO_ENVIRONMENT: "production"
+      HUGO_ENV: "production"
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Build Hugo site
+        run: hugo --minify
+
+      # Upload the built site (./public) as a Pages artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      # Deploy that artifact to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
