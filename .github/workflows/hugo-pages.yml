@@ -18,8 +18,6 @@ jobs:
 
     env:
       HUGO_VERSION: "0.152.2"
-      HUGO_ENVIRONMENT: "production"
-      HUGO_ENV: "production"
 
     steps:
       - name: Checkout repo
