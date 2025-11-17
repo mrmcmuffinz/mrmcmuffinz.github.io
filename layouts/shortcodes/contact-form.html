@@ -1,0 +1,59 @@
+<div class="max-w-lg mx-auto my-8">
+  <form
+    action="https://formspree.io/f/mdkyryjn"
+    method="POST"
+    class="space-y-4"
+  >
+    <div>
+      <label class="block mb-1">
+        Your name
+      </label>
+      <input
+        type="text"
+        name="name"
+        required
+        class="w-full rounded-md border px-3 py-2"
+        style="color:#111111; font-weight:600;"
+      >
+    </div>
+
+    <div>
+      <label class="block mb-1">
+        Your email
+      </label>
+      <input
+        type="email"
+        name="email"
+        required
+        class="w-full rounded-md border px-3 py-2"
+        style="color:#111111; font-weight:600;"
+      >
+    </div>
+
+    <div>
+      <label class="block mb-1">
+        Message
+      </label>
+      <textarea
+        name="message"
+        rows="5"
+        required
+        class="w-full rounded-md border px-3 py-2"
+        style="color:#111111; font-weight:600;"
+      ></textarea>
+    </div>
+
+    <!-- Honeypot field for spam bots -->
+    <input type="text" name="_gotcha" style="display:none">
+
+    <!-- Subject line -->
+    <input type="hidden" name="_subject" value="New message from mrmcmuffinz.github.io">
+
+    <button
+      type="submit"
+      class="px-4 py-2 rounded-md border"
+    >
+      Send
+    </button>
+  </form>
+</div>
