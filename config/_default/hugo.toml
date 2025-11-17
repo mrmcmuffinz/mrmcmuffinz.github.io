@@ -1,7 +1,6 @@
 title = "Abraham Cabrera"
 languageCode = "en-us"
 theme = "blowfish"
-baseURL = "https://mrmcmuffinz.github.io/"
 defaultContentLanguage = "en"
 enableRobotsTXT = true
 summaryLength = 0
@@ -10,6 +9,7 @@ buildFuture = false
 enableEmoji = true
 googleAnalytics = "G-E2DJHQS5DF"
 disqusShortname = "abrahamcabrera-github-io"
+baseURL = "https://mrmcmuffinz.github.io/"
 
 [pagination]
 pagerSize = 100
