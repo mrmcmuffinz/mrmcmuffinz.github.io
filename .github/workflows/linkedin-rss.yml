@@ -2,20 +2,25 @@ name: Linkedin blog post workflow
 
 on:
   schedule:
-    - cron: "0 * * * *" # runs every hour
+    # Runs every hour
+    - cron: "0 * * * *"
   workflow_dispatch: {}  # allow manual runs
 
 jobs:
   linkedin_rss_job:
+    name: Post latest blog post to LinkedIn
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Post Latest Blog Article to LinkedIn
-        uses: Arisamiga/Linkedin-RSS@v1.3.0
+      - name: Post latest blog post to LinkedIn
+        uses: Arisamiga/Linkedin-RSS@master
         with:
+          # Use your Hugo posts section feed
           feed_list: "https://mrmcmuffinz.github.io/posts/index.xml"
+
+          # Your LinkedIn access token (stored in GitHub secrets)
           ln_access_token: "${{ secrets.LINKEDIN_ACCESS_TOKEN }}"
