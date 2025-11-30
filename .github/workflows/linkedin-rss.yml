@@ -29,15 +29,3 @@ jobs:
           commit_user: "linkedin-bot"
           commit_email: "19247363+mrmcmuffinz@users.noreply.github.com"
           commit_message: "Update last LinkedIn post marker"
-
-      - name: Debug: show .github folder
-        if: always()
-        run: |
-          echo "=== ls .github ==="
-          ls -la .github || true
-          if [ -f .github/.lastPost.txt ]; then
-            echo "=== .lastPost.txt contents ==="
-            cat .github/.lastPost.txt || true
-          else
-            echo "No .github/.lastPost.txt found in runner workspace."
-          fi
