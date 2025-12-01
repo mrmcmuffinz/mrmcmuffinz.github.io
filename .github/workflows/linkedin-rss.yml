@@ -31,5 +31,5 @@ jobs:
         if: always()
         run: |
           echo "=============== Checking on .github/.lastPost.txt"
-          ls -la .github
           cat .github/.lastPost.txt || true
+          git status
