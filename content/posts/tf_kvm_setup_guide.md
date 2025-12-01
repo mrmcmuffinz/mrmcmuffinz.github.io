@@ -1,10 +1,10 @@
 +++
 date = '2025-11-29T19:45:42-06:00'
-draft = true
+draft = false
 title = 'Setup KVM via Terraform (with Cloud-Init and Bridged Networking)'
 +++
 
-# **TXGrid QEMU + Terraform Bring-Up Runbook**  
+# **Terraform Bring-Up Adventures**  
 _This write up is a continuation of the prior post where I create a fully reproducible enviroment to deploy a 3-node lab using QEMU/KVM, libvirt, Terraform, cloud-init, AppArmor tuning, and sysctl kernel configuration._
 
 ---
@@ -30,42 +30,59 @@ All nodes run **Ubuntu Server 24.04 cloud image**.
 
 ---
 
-# **2. Kernel Tuning (sysctl)**
+# **2. Prerequisites & Host Preparation**
 
-These settings are required in order for the bridge networks to actually get an assigned ip address from the host OS. Without the kernel parameter enabled the bridged adapter for each node will not receive an ip.
+Refer to the prior blog post [kvm_libvirt_setup_guide](https://mrmcmuffinz.github.io/posts/kvm_libvirt_setup_guide/) for:
 
-- Allow IPv4 forwarding between `br0` and `txgrid-net`
+- Installation of QEMU/KVM, libvirt, and supporting packages
+- Bridge creation via Netplan
+- User/group permissions for libvirt and KVM
+- Cloud-init basics
 
-Create:
-
-```bash
-sudo echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
-```
-
-Apply:
-
-```bash
-sudo sysctl --system
-```
-
-Verify:
-
-```bash
-sysctl net.ipv4.ip_forward
-```
-
-Expected:
-
-```text
-net.ipv4.ip_forward = 1
-```
+This guide focuses **only on what is required in addition** to the earlier setup.
 
 ---
 
-# **3. AppArmor Fix for Libvirt**
+# **3. Architecture Overview**
 
-Ubuntu’s libvirt AppArmor profile restricts QEMU to a limited set of paths.  
-Terraform-generated disks and cloud-init ISOs may be blocked unless explicitly allowed.
+TXGrid uses:
+
+- A Linux bridge (`br0`) for external network access  
+- A libvirt-managed internal network for inter-node traffic  
+- Terraform to orchestrate all VMs, disks, NICs, and cloud-init configurations  
+- Cloud-init for hostname assignment, SSH access, package installs, and bootstrap scripting  
+
+---
+
+# **4. Terraform Bring-Up (High Level)**
+
+Terraform handles:
+
+- Volume creation (qcow2 cloning)
+- Domain definitions for each VM
+- NIC attachment (bridge + private network)
+- Cloud-init ISO injection
+- VM boot ordering and metadata
+
+The full configs and modules are in the GitHub [my-ai-journey/tree/v0.1.1/infra/terraform](https://github.com/mrmcmuffinz/my-ai-journey/tree/v0.1.1/infra/terraform). The code is under development and constantly changing however I have linked the version v0.1.1 that I wrote for this runbook.
+
+---
+
+# **5. AppArmor Adjustments**
+
+Ubuntu’s default AppArmor profiles may block certain QEMU operations, especially when:
+
+- Using bridged networking
+- Accessing custom disk paths or cloud-init data
+- Running Terraform-created domains that reference nonstandard directories
+
+Symptoms include:
+
+- `qemu-system: failed to open /dev/...`
+- AppArmor DENIED messages in `dmesg` or `/var/log/syslog`
+- Terraform-created domains failing to launch
+
+This resolves `Permission denied` issues when QEMU attempts to read Terraform-created files:
 
 Create the folder 
 
@@ -102,30 +119,65 @@ You should see libvirt-related profiles in **enforce** mode, with your updated r
    /usr/sbin/libvirtd (50117) libvirtd
 ```
 
-This resolves `Permission denied` issues when QEMU attempts to read Terraform-created files.
+---
+
+# **6. Kernel Tuning (sysctl)**
+
+These settings are required to support forwarding and inter-VM routing. Without the kernel parameter enabled the bridged adapter for each node will not receive an ip.
+
+- Allow IPv4 forwarding between `br0` and `txgrid-net`
+
+Modify:
+
+```bash
+sudo echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+```
+
+Apply:
+
+```bash
+sudo sysctl --system
+```
+
+Verify:
+
+```bash
+sysctl net.ipv4.ip_forward
+```
+
+Expected:
+
+```text
+net.ipv4.ip_forward = 1
+```
 
 ---
 
-# **3. Terraform Project Structure**
+# **7. Migrating to the Latest Terraform libvirt Provider**
 
-You can see the terraform code [https://github.com/mrmcmuffinz/my-ai-journey/tree/v0.1.1/infra/terraform](https://github.com/mrmcmuffinz/my-ai-journey/tree/v0.1.1/infra/terraform).  
-The code is under development and constantly changing however I have linked the version v0.1.1 that I wrote for this runbook.
+**Status:** Migration is _work in progress_. I created a WIP branch with partial changes, but I did **not** finish migrating to the latest provider due to upstream bugs and instability. I am **not** recommending an upgrade at this time.
 
-### Highlights of the Terraform configuration
+WIP-Code: [my-ai-journey/tree/upgrade_libvirt_provider_to_0_9_x](https://github.com/mrmcmuffinz/my-ai-journey/tree/upgrade_libvirt_provider_to_0_9_x)  
+I also have a discussion open with the maintainer as well [terraform-provider-libvirt/discussions/1231](https://github.com/dmacvicar/terraform-provider-libvirt/discussions/1231) however time will tell if upstream will stabilize or not.
 
-- Libvirt provider (`qemu:///system`)
-- A storage pool (`txgrid`) at `/var/lib/libvirt/images/txgrid`
-- A base volume referencing `noble-server-cloudimg-amd64.img`
-- Per-node volumes cloned from the base
-- `libvirt_cloudinit_disk` for each node
-- `libvirt_domain` with:
-  - Disk from cloned volume
-  - NIC 1 → `br0` (LAN)
-  - NIC 2 → `txgrid-net` (internal)
+Observed issues during attempted migration to 0.9.0 (and why I paused):
+
+- Breaking changes in resource attributes that required nontrivial refactors of node modules.  
+- Removal or renaming of disk/network attributes that made old state incompatible.  
+- Domain XML differences and provider behavior changes causing Terraform to attempt destructive updates.  
+- Upstream provider bugs causing intermittent failures during `plan`/`apply`.  
+- State files from older versions becoming difficult to reconcile without careful manual interventions.
+
+Current guidance:
+
+- Continue using the provider version that matches your working branch / environment.  
+- If you experiment with the WIP branch, do so on disposable state and snapshots only.  
+- Watch upstream provider issue tracker for patches/fixes before attempting production migration.  
+- I have preserved my WIP branch in the repo for anyone who wants to inspect the attempted changes, but **do not** treat it as stable or recommended.
 
 ---
 
-# **4. Running Terraform**
+# **8. Operation Workflow**
 
 Steps to run the code are documented in the repo, at a high level these are the general steps:
 
@@ -135,8 +187,7 @@ Steps to run the code are documented in the repo, at a high level these are the 
 4. Run `terraform plan` to preview the changes.
 5. Run `terraform apply -auto-approve` to provision the infrastructure.
 
-Note: You have to run step 5 twice due to a bug in the terraform provider that doesn't refresh the internal state of libvirt. What ends up happening is that the networking information is stale and on a second run it gets populated.  
-    I do have a WIP branch to migrate to the newest vesion of the provider but it is not stable you can see it [here](https://github.com/mrmcmuffinz/my-ai-journey/tree/upgrade_libvirt_provider_to_0_9_x/infra/terraform). I also have a discussion open with the maintainer as well [here](https://github.com/dmacvicar/terraform-provider-libvirt/discussions/1231) however time will tell if upstream will stabilize or not.
+**Note:** You have to run step 5 twice due to a bug in the terraform provider that doesn't refresh the internal state of libvirt. What ends up happening is that the networking information is stale and on a second run it gets populated.  
 
 Here is what the outputs look like
 
@@ -258,11 +309,11 @@ vm_ip_addresses = [
 ]
 ```
 
----
+# **9. Verification Steps**
 
-# **5. Verification Steps**
+At this point the nodes should be online and below are a set of steps you can run to verify a few things.
 
-## 5.1 Verify domains
+Verify domains:
 
 ```bash
 virsh list --all
@@ -301,7 +352,7 @@ Example successful output (for `txgrid-cp0`):
  -          -                    ipv6         fe80::5054:ff:fe5e:144e/64
 ```
 
-## 5.2 SSH into control plane
+SSH into txgrid-cp0:
 
 ```bash
 ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no txgrid@192.168.50.10
@@ -346,15 +397,7 @@ txgrid@cp0:~$
 ```
 
 
-## 5.3 Connectivity tests inside the cluster
-
-From **txgrid-cp0**:
-
-```bash
-ping -c 3 192.168.50.1        # host's txgrid-net bridge/gateway
-ping -c 3 <wk0-ens4-ip>       # internal IP of txgrid-wk0
-ping -c 3 <wk1-ens4-ip>       # internal IP of txgrid-wk1
-```
+Connectivity tests between nodes:
 
 From **txgrid-cp0 -> txgrid-wk1**:
 
@@ -384,7 +427,7 @@ PING 192.168.50.12 (192.168.50.12) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.232/0.248/0.277/0.020 ms
 ```
 
-Outbound request to public:
+Connectivity outbound request to public:
 
 ```
 txgrid@cp0:~$ ping -c 3 www.google.com
@@ -400,18 +443,32 @@ rtt min/avg/max/mdev = 40.067/40.237/40.559/0.227 ms
 
 ---
 
-# **6. Teardown **
+# **10. Troubleshooting & Gotchas**
 
-From the Terraform project directory:
+### **Common Issues**
+
+| Issue | Likely Cause | Fix |
+|-------|--------------|------|
+| VMs fail to start | AppArmor restriction | Update QEMU profile (see repo diffs) or relax policy for lab usage |
+| NIC missing | Bridge misconfiguration | Validate Netplan & ensure bridge exists before VM start |
+| Cloud-init not applying | Wrong metadata or template path | Rebuild the cloud-init ISO module |
+| Terraform repeatedly recreates resources | Provider incompatibility | Use pinned provider version and avoid migrating until upstream stabilizes |
+
+### **Useful Commands**
 
 ```bash
-terraform destroy
+virsh list --all
+virsh domifaddr txgrid-cp0
+virsh net-dhcp-leases default
+virsh dumpxml txgrid-wk1
 ```
 
-This removes:
+---
 
-- VMs (libvirt domains)
-- Cloned volumes
-- Cloud-init disks
-- Base image 
-- libvirt networks
+# **11. Further Enhancements**
+
+Future improvements may include:
+
+- Ansible provisioning post-boot
+- GPU passthrough testing for ML workloads
+- iperf-based network benchmarking between nodes
