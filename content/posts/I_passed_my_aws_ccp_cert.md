@@ -6,11 +6,11 @@ title = "I passed my AWS Certified Cloud Practicioner Cert and here's what I did
 
 # How I Passed the AWS Certified Cloud Practitioner (CLF-C02)
 
-Welcome back my random reader across the world. Today I want to write about what I did to pass my most recent certification, the AWS Certified Cloud Practitioner (CLF-C02). For those unfamiliar, the CCP covers cloud concepts, security and compliance, core AWS services, and billing and pricing. It's a foundational cert, but a solid starting point for anyone building their AWS credentials.
+Welcome back to my random reader across the world. Today I want to write about what I did to pass my most recent certification, the AWS Certified Cloud Practitioner (CLF-C02). For those unfamiliar, the CCP covers cloud concepts, security and compliance, core AWS services, and billing and pricing. It's a foundational cert, but a solid starting point for anyone building their AWS credentials.
 
 ## The Course
 
-I took Stephane Maarek's course [NEW Ultimate AWS Certified Cloud Practitioner CLF-C02 2026](https://www.udemy.com/course/aws-certified-cloud-practitioner-new/), and completed the six accompanying practice exams found [here](https://www.udemy.com/course/practice-exams-aws-certified-cloud-practitioner/). My study method was straightforward: I completed about two sections per day and took notes as I went. In total, I studied for roughly three weeks, averaging two to three hours per day.
+I took a course from Udemy by Stephane Maarek called [NEW Ultimate AWS Certified Cloud Practitioner CLF-C02 2026](https://www.udemy.com/course/aws-certified-cloud-practitioner-new/), and after completing it, he offers 6 practice tests that can be found [here](https://www.udemy.com/course/practice-exams-aws-certified-cloud-practitioner/). My study method was straightforward: I completed about 2 sections per day and took notes as I went. I also set up an AWS Free Tier account at the start of the course so I could follow along with the hands-on portions and actually practice in the console as I learned. I'd recommend doing this early on because seeing the services in action makes the concepts stick a lot better than just watching the lectures alone.
 
 ## The Focus Struggle
 
