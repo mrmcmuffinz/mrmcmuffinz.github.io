@@ -1,7 +1,7 @@
 +++
 title = 'Just Another VNC TLS+Passwd Auth and SSH Tunnel Setup'
 date = '2026-02-20T15:08:17-06:00'
-draft = true
+draft = false
 tags = ["ssh", "ubuntu", "homelab", "vnc"]
 categories = ["Homelab", "DevOps"]
 description = "A guide to setting up VNC Server with TLS+Passwd Auth and connecting via SSH Tunnel on Ubuntu 24.04."
