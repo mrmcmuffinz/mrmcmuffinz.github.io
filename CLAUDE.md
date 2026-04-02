@@ -57,3 +57,9 @@ layout = "post"
 - `config/_default/params.toml` — Blowfish theme params (color scheme, dark mode, Disqus comments)
 - `assets/css/custom.css` — CSS overrides
 - `layouts/` — Hugo template overrides (use these instead of modifying `themes/blowfish/` directly)
+
+## Skills
+
+- **blog-post-writer** (`.claude/skills/blog-post-writer/SKILL.md`) — Read
+  before writing, drafting, or revising any blog post. Defines voice, structure,
+  Hugo conventions, and the multi-phase writing workflow.
