@@ -1,1 +1,1 @@
-https://mrmcmuffinz.dev/posts/aws_ai_foundation_cert/
+https://mrmcmuffinz.dev/posts/domain_migration_to_cloudflare/
