@@ -1,0 +1,40 @@
+{
+  "name": "Debian: Trixie - MrMcMuffinz Hugo Blog Site",
+
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils": {
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/devcontainers/features/git": {},
+    "ghcr.io/devcontainers/features/github-cli": {},
+ 		"ghcr.io/devcontainers/features/go": {},
+		"ghcr.io/devcontainers/features/hugo": {}
+
+  },
+
+  "forwardPorts": [1313],
+  "portsAttributes": {
+    "5000": {
+      "label": "Hugo Dev Server",
+      "onAutoForward": "openBrowser"
+    }
+  },
+
+  "mounts": [
+    "type=volume,source=claude-config,target=/home/vscode/.claude",
+    "type=volume,source=semgrep-config,target=/home/vscode/.semgrep",
+    "type=volume,source=go-pkg-cache,target=/go/pkg"
+  ],
+
+  "runArgs": [
+    "--runtime=io.containerd.runc.v2"
+  ],
+  
+  "overrideCommand": false,
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+}

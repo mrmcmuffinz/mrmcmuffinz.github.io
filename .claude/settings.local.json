@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /workspaces/mrmcmuffinz.github.io/.claude/commands)",
+      "Bash(touch /workspaces/mrmcmuffinz.github.io/.claude/commands/.gitkeep)",
+      "Bash(hugo)",
+      "Bash(hugo server:*)"
+    ]
+  }
+}

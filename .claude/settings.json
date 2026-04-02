@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(hugo server*)",
+      "Bash(hugo new*)",
+      "Bash(hugo --minify*)",
+      "Bash(hugo)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(git switch*)",
+      "Bash(gh pr*)",
+      "Bash(gh issue*)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf*)"
+    ]
+  }
+}
