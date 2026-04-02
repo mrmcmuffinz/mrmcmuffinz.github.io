@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A personal Hugo static site (mrmcmuffinz.github.io) using the [Blowfish theme](https://blowfish.page/). Content is Markdown with TOML front matter. Deployed to GitHub Pages on push to `main`.
+A personal Hugo static site (mrmcmuffinz.dev) using the [Blowfish theme](https://blowfish.page/). Content is Markdown with TOML front matter. Deployed to GitHub Pages on push to `main`.
 
 ## Common Commands
 

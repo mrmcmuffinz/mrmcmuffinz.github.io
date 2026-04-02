@@ -32,7 +32,7 @@ All nodes run **Ubuntu Server 24.04 cloud image**.
 
 # **2. Prerequisites & Host Preparation**
 
-Refer to the prior blog post [kvm_libvirt_setup_guide](https://mrmcmuffinz.github.io/posts/kvm_libvirt_setup_guide/) for:
+Refer to the prior blog post [kvm_libvirt_setup_guide](https://mrmcmuffinz.dev/posts/kvm_libvirt_setup_guide/) for:
 
 - Installation of QEMU/KVM, libvirt, and supporting packages
 - Bridge creation via Netplan

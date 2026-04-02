@@ -14,7 +14,7 @@ Welcome back friend. I passed the AWS Certified AI Practitioner (AIF-C01) exam o
 
 ## The Same Wall, Again
 
-If you read my [CCP post](https://mrmcmuffinz.github.io/posts/i_passed_my_aws_ccp_cert/), you know the pattern. I took Stephane Maarek's Udemy course, went through it section by section, took notes, and felt reasonably confident by the end. Then I took the first practice exam and scored 63%. For the CCP I pushed through that, reviewed my misses, and climbed into the 80s within a few days.
+If you read my [CCP post](https://mrmcmuffinz.dev/posts/i_passed_my_aws_ccp_cert/), you know the pattern. I took Stephane Maarek's Udemy course, went through it section by section, took notes, and felt reasonably confident by the end. Then I took the first practice exam and scored 63%. For the CCP I pushed through that, reviewed my misses, and climbed into the 80s within a few days.
 
 For the AI Practitioner I did the same thing. I completed Maarek's Udemy course, also completed the AWS Skill Builder learning plan (so two full courses this time), and sat down for the first practice exam feeling prepared. 64%. Two courses, weeks of lectures and notes, and I'm staring at a 64%.
 

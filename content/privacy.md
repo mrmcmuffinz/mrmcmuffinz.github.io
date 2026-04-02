@@ -14,7 +14,7 @@ showTaxonomies  = false
 
 Welcome to **MrMcMuffinz Labs**!
 
-This website, available at **https://mrmcmuffinz.github.io**, is a personal technology blog run by Abraham Cabrera. Your privacy is important. This document explains what data may be collected and how it may be used.
+This website, available at **https://mrmcmuffinz.dev**, is a personal technology blog run by Abraham Cabrera. Your privacy is important. This document explains what data may be collected and how it may be used.
 
 ---
 
@@ -52,7 +52,7 @@ https://help.disqus.com/en/articles/1717103-disqus-privacy-policy
 ### 3. Contact Form
 
 If you submit a message via the contact form at  
-👉 https://mrmcmuffinz.github.io/contact/  
+👉 https://mrmcmuffinz.dev/contact/  
 you may choose to provide your name, email, and a message. This information is used solely to respond to your inquiry and is not shared with third parties.
 
 ---
