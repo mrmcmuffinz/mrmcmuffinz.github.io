@@ -8,8 +8,6 @@ description = "I ran Aider with qwen2.5-coder:14b via Ollama on my desktop to bu
 layout = "post"
 +++
 
-# I Tested Aider with a Local AI Model and It Was... Fine
-
 Welcome back friends. I've been using Claude Code for a while now and I wanted to know what the local, self-hosted version of that experience looks like. Not a cloud API, not a subscription, just a model running on my own GPU, connected to a CLI tool that reads and edits my project files. The tool I landed on was **Aider**, and the model was `qwen2.5-coder:14b` served through **Ollama** on my Ubuntu 24.04 desktop. I gave it a simple task (build a tic-tac-toe game in Python), recorded the whole thing, and walked away with a working game and a list of caveats. This post is about what happened.
 
 {{< youtube "-tr-xig1PPw" >}}
