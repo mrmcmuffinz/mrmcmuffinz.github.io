@@ -1,1 +1,1 @@
-https://mrmcmuffinz.dev/posts/domain_migration_to_cloudflare/
+https://mrmcmuffinz.dev/posts/aider_ollama_tictactoe/
