@@ -4,7 +4,19 @@
       "Bash(mkdir -p /workspaces/mrmcmuffinz.github.io/.claude/commands)",
       "Bash(touch /workspaces/mrmcmuffinz.github.io/.claude/commands/.gitkeep)",
       "Bash(hugo)",
-      "Bash(hugo server:*)"
+      "Bash(hugo server:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:gohugo.io)",
+      "Bash(hugo list:*)",
+      "Bash(git:*)",
+      "WebFetch(domain:youtu.be)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.youtube.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:1313/posts/aider_ollama_tictactoe/)",
+      "Bash(kill %1)"
     ]
   }
 }

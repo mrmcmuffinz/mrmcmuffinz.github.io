@@ -130,11 +130,20 @@ characteristics:
 
 **Paragraph structure:**
 - Write in flowing paragraphs, not stacked single-line declarations.
-- Each paragraph should contain multiple connected thoughts.
+- Each paragraph should contain **at least 4-5 sentences** with multiple
+  connected thoughts. One or two sentence paragraphs are almost never
+  acceptable in the body of a post.
 - Avoid the AI pattern of: short declarative sentence, period, another
-  short declarative sentence, period. This reads as robotic.
+  short declarative sentence, period. This reads as robotic. Also avoid
+  the "That's X. That's Y." staccato pattern (e.g., "That's real. That's
+  useful.") which is a dead giveaway of AI-generated text.
 - Thoughts within a paragraph should flow into each other naturally,
   the way someone would talk through an experience.
+- **Analysis and opinion sections are the worst offenders.** When writing
+  sections like "The Honest Take" or any reflective/assessment section,
+  be especially careful to write long, flowing paragraphs that weave
+  multiple related ideas together rather than stating each observation
+  as its own short paragraph.
 
 **What to avoid:**
 - Marketing language ("game-changer", "deep dive", "unlock")
@@ -145,6 +154,7 @@ characteristics:
   only in recommendation/action-item sections where scannability matters.
 - Em dashes. Use commas, periods, parentheses, or restructure the sentence
   instead. This is a hard rule with no exceptions.
+- The word "wrong" in reference to code or output. Use "incorrect" instead.
 
 **Opening pattern:**
 - Posts open with "Welcome back friend." or a similar short, warm greeting.
