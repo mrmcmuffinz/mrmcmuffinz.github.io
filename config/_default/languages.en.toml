@@ -21,7 +21,6 @@ title = "Home"
   bio = "Builder. Thinker. Automator. I home-lab, code things, break them, fix them, then write about it."
 
   links = [
-     { dev = "https://dev.to/cabraham2026devto" },
      { github = "https://github.com/mrmcmuffinz" },
      { linkedin = "https://www.linkedin.com/in/abrahamcabrera/" },
      { steam = "https://steamcommunity.com/id/MrMcMuffins/" },
