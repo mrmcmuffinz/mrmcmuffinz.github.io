@@ -10,7 +10,9 @@ layout = "post"
 
 # My Experience at SRE-Day Austin 2026
 
-Welcome back friends. On May 12, 2026, I attended SRE-Day Austin, a DevOps-focused conference exploring the intersection of site reliability engineering and modern tooling. I recorded the full experience and posted a [video recap on YouTube](https://www.youtube.com/watch?v=IYuIhiKi5eE) if you want to see the raw thoughts right after the event. This post is my written take on what stood out, what I learned, and what I wish had been there. First off, thanks to the coordinators, Miko and Mark Pawlowski, two brothers from the EU who put this together. The event had several speakers, and while some were more engaging than others, I found value in most of them. I want to talk about three presentations that particularly resonated with me, and then share some broader thoughts about what it's like trying to break into SRE work in 2026.
+Welcome back friends. On May 12, 2026, I attended SRE-Day Austin, a DevOps-focused conference exploring the intersection of site reliability engineering and modern tooling. I recorded the full experience, and you can watch the full video recap below if you want to see the raw thoughts right after the event. This post is my written take on what stood out, what I learned, and what I wish had been there. First off, thanks to the coordinators, Miko and Mark Pawlowski, two brothers from the EU who put this together. The event had several speakers, and while some were more engaging than others, I found value in most of them. I want to talk about three presentations that particularly resonated with me, and then share some broader thoughts about what it's like trying to break into SRE work in 2026.
+
+{{< youtube "IYuIhiKi5eE" >}}
 
 ## Three Presentations That Stood Out
 
