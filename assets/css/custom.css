@@ -20,3 +20,9 @@
     "Liberation Mono", "Courier New", monospace;
   font-size: 0.9rem;
 }
+
+/* Center Mermaid diagrams (rendered SVG) */
+.mermaid {
+  display: flex;
+  justify-content: center;
+}
