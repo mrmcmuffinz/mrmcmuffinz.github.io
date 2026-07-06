@@ -1,6 +1,6 @@
 +++
 date = '2026-07-06T11:12:22-05:00'
-draft = true
+draft = false
 title = 'I Passed the CKA Exam'
 tags = ["kubernetes", "cka", "homelab"]
 categories = ["certs"]
